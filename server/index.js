@@ -1,7 +1,7 @@
 const fastify = require('fastify')();
 import Router from './Router';
 import { MongoDB } from '../db';
-import helper from '../helper'
+import helper from '../helper';
 
 // Environment Variables
 const env = process.env.NODE_ENV || 'local';
