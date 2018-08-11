@@ -2,7 +2,6 @@ import { RequestHandler } from '../controllers';
 
 /**
  * Router - this class a method that routes all the requests
- * it relies on express.Router() in order to create API versioning (like v1, v2 and so on)
  *
  * @export
  * @class Router
@@ -18,5 +17,6 @@ export default class Router {
 		const handler = new RequestHandler(fastify, mongo);
 
 		fastify.get('/exchange',  handler.get);
+		fastify.get('/health', handler.get);
 	}
 }

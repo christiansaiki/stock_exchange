@@ -10,12 +10,12 @@ export default class RequestHandler {
 	/**
 	 * get - this method handles all the GET requests
 	 *
-	 * @param {object} req - express request object
-	 * @param {object} res - express response object
+	 * @param {object} req - fastify request object
+	 * @param {object} res - fastify response object
 	 * @memberof RequestHandler
 	 */
 	async get(req, res) {
-		const { url, params, query } = req;
-		await this.controllersFactory.getControllers(url)(res, params, query);
+		const { raw, params, query } = req;
+		await this.controllersFactory.getControllers(raw.url)(res, params, query);
 	}
 }
