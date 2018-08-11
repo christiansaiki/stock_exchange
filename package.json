@@ -7,7 +7,9 @@
     "dev": "nodemon app.js --exec babel-node",
     "start": "babel-node app.js",
     "linter": "eslint . --fix",
-    "test": "jest tests/"
+    "test": "jest tests/",
+    "populate": "babel-node db/populate.js",
+    "removeAll": "babel-node db/cleanStocks.js"
   },
   "repository": {
     "type": "git",

@@ -1,9 +1,9 @@
 export function stocks (Schema) {
 	return new Schema({
-		companyId: String,
+		company_id: String,
 		countries: [String],
 		budget: Number,
-		baseBid: Number,
+		base_bid: Number,
 		categories: [String],
 	},
 	{

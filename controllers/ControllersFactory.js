@@ -12,8 +12,7 @@ export default class ControllersFactory {
 	}
 
 	getControllers(url) {
-    // Health controller routes
-    console.log(url)
+		// Health controller routes
 		if(/^(\/health)$/.test(url)) return this.health.check;
 
 		// Exchange controller routes

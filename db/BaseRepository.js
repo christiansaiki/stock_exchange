@@ -19,6 +19,10 @@ export default class BaseRepository {
 		return await this.resolve(this.model.findOneAndUpdate(query, info, options));
 	}
 
+	async remove(query) {
+		return await this.resolve(this.model.remove(query));
+	}
+
 	async resolve(promise) {
 		let result;
 		let error;
