@@ -20,7 +20,19 @@ export default class Exchange {
 		this.buildLog = this.buildLog.bind(this);
 	}
 
-	async buyStock (res, query) {
+	/**
+   * buyStock - This is the main method of this class.
+   * It is responsible for checking if the stock is within the targeting params.
+   * Then it checks if it is within the budget constraints.
+   * Then it checks if it is inside the baseBid restrictions.
+   * Then it chooses the highest baseBid and responds to the client.
+   *
+   * @param {object} res - fastify response object
+   * @param {object} query - fastify req.query object
+   * @returns {object} res - fastify response object
+   * @memberof Exchange
+   */
+  async buyStock (res, query) {
 		const country = query.countrycode;
 		const category = query.Category;
 		const baseBid = query.BaseBid;
@@ -71,10 +83,18 @@ export default class Exchange {
 		return res.send(winner.company_id);
 	}
 
-	buildLog(step, array) {
+	/**
+   * buildLog - It is just a method to make it easier to log which
+   * companies passed or failed in the restrictions.
+   *
+   * @param {string} step
+   * @param {array} array
+   * @memberof Exchange
+   */
+  buildLog(step, array) {
+    const companies = ['C1', 'C2', 'C3'];
 		let log = '';
 		const presentCompanies = array.map(company => company.company_id);
-		const companies = ['C1', 'C2', 'C3'];
 
 		companies.forEach(company => {
 			let status = presentCompanies.includes(company) ? 'Passed' : 'Failed';
