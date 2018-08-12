@@ -14,7 +14,7 @@ export default class Router {
 
 	init() {
 		const { fastify, mongo } = this;
-		const handler = new RequestHandler(fastify, mongo);
+		const handler = new RequestHandler(mongo);
 
 		fastify.get('/exchange',  handler.get);
 		fastify.get('/health', handler.get);

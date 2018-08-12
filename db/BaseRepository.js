@@ -15,6 +15,10 @@ export default class BaseRepository {
 		return await this.resolve(entity.save());
 	}
 
+	async findAll(query, info, options = {}) {
+		return await this.resolve(this.model.find(query, info, options));
+	}
+
 	async findAndUpdate(query, info, options = { new: true }) {
 		return await this.resolve(this.model.findOneAndUpdate(query, info, options));
 	}
