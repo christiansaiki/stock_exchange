@@ -16,6 +16,7 @@ export default class RequestHandler {
 	 */
 	async get(req, res) {
 		const { raw, query } = req;
-		await this.controllersFactory.getControllers(raw.url)(res, query);
+		const result = await this.controllersFactory.getControllers(raw.url)(query);
+		res.send(result);
 	}
 }

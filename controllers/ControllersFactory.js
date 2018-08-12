@@ -26,7 +26,7 @@ export default class ControllersFactory {
 	 * @returns {number}
 	 * @memberof ControllersFactory
 	 */
-	notFound(res) {
-		return res.send(404);
+	notFound() {
+		return 404;
 	}
 }

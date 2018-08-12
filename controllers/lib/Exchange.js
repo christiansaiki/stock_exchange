@@ -18,6 +18,9 @@ export default class Exchange {
 
 		// Auxiliary Methods
 		this.buildLog = this.buildLog.bind(this);
+		this.sortByHighestBid = this.sortByHighestBid.bind(this);
+		this.budgetCheck = this.budgetCheck.bind(this);
+		this.baseBidCheck = this.baseBidCheck.bind(this);
 	}
 
 	/**
@@ -27,12 +30,11 @@ export default class Exchange {
    * Then it checks if it is inside the baseBid restrictions.
    * Then it chooses the highest baseBid and responds to the client.
    *
-   * @param {object} res - fastify response object
    * @param {object} query - fastify req.query object
-   * @returns {object} res - fastify response object
+   * @returns {string} response string
    * @memberof Exchange
    */
-  async buyStock (res, query) {
+	async buyStock (query) {
 		const country = query.countrycode;
 		const category = query.Category;
 		const baseBid = query.BaseBid;
@@ -49,38 +51,31 @@ export default class Exchange {
 			categories: category
 		};
 		const promise = await this.stocks.findAll(mongoQuery);
-		if (promise.err) throw promise.err;
+		if (promise.error) return 'Error in Server during query';
 
 		// Base Targeting Check
-		if (!promise.result.length) return res.send('No Companies Passed from Targeting');
+		if (!promise.result.length) return 'No Companies Passed from Targeting';
 		this.buildLog('Base Targeting:', promise.result);
 
 		// Budget Check
-		const budgetCompanies = promise.result.filter(company => {
-			return (company.budget - adjustedBid) >= 0;
-		});
-		if (!budgetCompanies.length) return res.send('No Companies Passed from Budget');
+		const budgetCompanies = this.budgetCheck(promise.result, adjustedBid);
+		if (!budgetCompanies.length) return 'No Companies Passed from Budget';
 		this.buildLog('Budget Check:', budgetCompanies);
 
-		// Base Bid Check
-		const validBidCompanies = budgetCompanies.filter(company => adjustedBid >= company.base_bid);
-		if (!validBidCompanies.length) return res.send('No Companies Passed from BaseBid check');
+		// BaseBid Check
+		const validBidCompanies = this.baseBidCheck(budgetCompanies, adjustedBid);
+		if (!validBidCompanies.length) return 'No Companies Passed from BaseBid check';
 		this.buildLog('Base Bid Check:', validBidCompanies);
 
 		// Choose winner by sorting from the highest basebid to the lowest
-		validBidCompanies.sort((a, b) => {
-			if (a.base_bid > b.base_bid) return -1;
-			if (a.base_bid < b.base_bid) return 1;
-			return 0;
-		});
-
-		const winner = validBidCompanies[0];
+		const sortedCompanies = this.sortByHighestBid(validBidCompanies);
+		const winner = sortedCompanies[0];
 
 		helper.logger.info('Winner:', winner.company_id);
 
 		const promise2 = await this.stocks.findAndUpdate({company_id: winner.company_id}, {$inc: {budget: adjustedBid * -1}});
-		if (promise2.err) throw promise2.err;
-		return res.send(winner.company_id);
+		if (promise2.error) return 'Error in Server while updating';
+		return winner.company_id;
 	}
 
 	/**
@@ -91,8 +86,8 @@ export default class Exchange {
    * @param {array} array
    * @memberof Exchange
    */
-  buildLog(step, array) {
-    const companies = ['C1', 'C2', 'C3'];
+	buildLog(step, array) {
+		const companies = ['C1', 'C2', 'C3'];
 		let log = '';
 		const presentCompanies = array.map(company => company.company_id);
 
@@ -101,5 +96,48 @@ export default class Exchange {
 			log = `${log} {${company}: ${status}} `;
 		});
 		helper.logger.info(step, log);
+	}
+
+
+	/**
+	 * budgetCheck - checks if the company has still stocks to be sold.
+	 *
+	 * @param {array} array
+	 * @param {number} adjustedBid
+	 * @returns {array}
+	 * @memberof Exchange
+	 */
+	budgetCheck(array, adjustedBid) {
+		return array.filter(company => (company.budget - adjustedBid) >= 0);
+	}
+
+
+	/**
+	 * baseBidCheck - checks if the client has a higher bid than the
+	 * baseBid required by the company
+	 *
+	 * @param {array} array
+	 * @param {number} adjustedBid
+	 * @returns {array}
+	 * @memberof Exchange
+	 */
+	baseBidCheck(array, adjustedBid) {
+		return array.filter(company => adjustedBid >= company.base_bid);
+	}
+
+	/**
+	 * sortByHighestBid - sorts the stocks by the descending
+	 * order of base_bid
+	 *
+	 * @param {array} array
+	 * @returns {array}
+	 * @memberof Exchange
+	 */
+	sortByHighestBid(array) {
+		return [...array].sort((a, b) => {
+			if (a.base_bid > b.base_bid) return -1;
+			if (a.base_bid < b.base_bid) return 1;
+			return 0;
+		});
 	}
 }

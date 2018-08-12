@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Exchange Controller - budgetCheck budgetCheck - everyone passes 1`] = `
+Array [
+  Object {
+    "budget": 10,
+    "company_id": "C1",
+  },
+  Object {
+    "budget": 15,
+    "company_id": "C2",
+  },
+  Object {
+    "budget": 90,
+    "company_id": "C3",
+  },
+]
+`;
+
+exports[`Exchange Controller - budgetCheck budgetCheck - noone passes 1`] = `Array []`;
+
+exports[`Exchange Controller - budgetCheck budgetCheck - only C1 passes 1`] = `
+Array [
+  Object {
+    "budget": 10,
+    "company_id": "C1",
+  },
+]
+`;
+
+exports[`baseBidCheck baseBidCheck - everyone passes 1`] = `
+Array [
+  Object {
+    "base_bid": 0.05,
+    "company_id": "C1",
+  },
+  Object {
+    "base_bid": 0.1,
+    "company_id": "C2",
+  },
+  Object {
+    "base_bid": 0.15,
+    "company_id": "C3",
+  },
+]
+`;
+
+exports[`baseBidCheck baseBidCheck - just C1 passes 1`] = `
+Array [
+  Object {
+    "base_bid": 0.05,
+    "company_id": "C1",
+  },
+]
+`;
+
+exports[`baseBidCheck baseBidCheck - noone passes 1`] = `Array []`;
+
+exports[`buyStock buyStock - Error in Server while updating 1`] = `"Error in Server while updating"`;
+
+exports[`buyStock buyStock - No Companies Passed from BaseBid check 1`] = `"No Companies Passed from BaseBid check"`;
+
+exports[`buyStock buyStock - No Companies Passed from Budget 1`] = `"No Companies Passed from Budget"`;
+
+exports[`buyStock buyStock - No Companies Passed from Targeting 1`] = `"No Companies Passed from Targeting"`;
+
+exports[`buyStock buyStock - Winner C1 1`] = `"C1"`;
+
+exports[`buyStock buyStock promise err - error in server during query 1`] = `"Error in Server during query"`;
+
+exports[`sortByHighestBid sortByHighestBid - C1, C2, C3 1`] = `
+Array [
+  Object {
+    "base_bid": 0.59,
+    "company_id": "C1",
+  },
+  Object {
+    "base_bid": 0.54,
+    "company_id": "C2",
+  },
+  Object {
+    "base_bid": 0.123,
+    "company_id": "C3",
+  },
+]
+`;
+
+exports[`sortByHighestBid sortByHighestBid - C1, C3, C2 1`] = `
+Array [
+  Object {
+    "base_bid": 0.59,
+    "company_id": "C1",
+  },
+  Object {
+    "base_bid": 0.15,
+    "company_id": "C3",
+  },
+  Object {
+    "base_bid": 0.14,
+    "company_id": "C2",
+  },
+]
+`;
+
+exports[`sortByHighestBid sortByHighestBid - C3, C2, C1 1`] = `
+Array [
+  Object {
+    "base_bid": 1,
+    "company_id": "C3",
+  },
+  Object {
+    "base_bid": 0.64,
+    "company_id": "C2",
+  },
+  Object {
+    "base_bid": 0.59,
+    "company_id": "C1",
+  },
+]
+`;

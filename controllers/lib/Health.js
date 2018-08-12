@@ -17,7 +17,7 @@ export default class Health {
 	 * @returns {object}
 	 * @memberof Health
 	 */
-	check(res) {
-		return res.send(200);
+	check() {
+		return 200;
 	}
 }
