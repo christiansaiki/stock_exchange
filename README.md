@@ -21,9 +21,9 @@ We are using the [PinoJS](https://github.com/pinojs/pino) library in order to ha
 Also I'm using [pino-tee](https://github.com/pinojs/pino-tee) in order to create the `exchange.log` file.
 
 ## Dependencies
-- MongoDB
+- [MongoDB](https://docs.mongodb.com/manual/installation/)
 - npm v6+
-- Node v8+
+- [Node v8+](https://nodejs.org/en/)
 
 ## Running locally
 
