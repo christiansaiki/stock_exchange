@@ -1,6 +1,7 @@
 import {Exchange} from '../../../controllers';
 import {BaseRepository} from '../../../db';
 import sinon from 'sinon';
+
 const exchangeRepository = new BaseRepository();
 
 describe('Exchange Controller - budgetCheck', () => {

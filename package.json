@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon app.js --exec babel-node",
-    "start": "babel-node app.js",
+    "start": "babel-node app.js | pino-tee > ./exchange.log",
     "linter": "eslint . --fix",
     "test": "jest tests/",
-    "populate": "babel-node db/populate.js",
-    "removeAll": "babel-node db/cleanStocks.js"
+    "populate": "babel-node -e 'require(\"./db/populate\")(false, true)'",
+    "removeAll": "babel-node -e 'require(\"./db/cleanStocks\")(false, true)'",
+    "unit-test": "jest tests/unit/"
   },
   "repository": {
     "type": "git",

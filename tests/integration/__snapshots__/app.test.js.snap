@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`APP Testing GET \`/\` route 1`] = `null`;
+
+exports[`APP Testing GET \`/\` route 2`] = `404`;
+
+exports[`APP Testing GET \`/exchange\` route - No Base Bid - US, Finance 1`] = `null`;
+
+exports[`APP Testing GET \`/exchange\` route - No Base Bid - US, Finance 2`] = `200`;
+
+exports[`APP Testing GET \`/exchange\` route - No Base Bid - US, Finance 3`] = `"No Companies Passed from BaseBid check"`;
+
+exports[`APP Testing GET \`/exchange\` route - No Budget - US, Finance 1`] = `null`;
+
+exports[`APP Testing GET \`/exchange\` route - No Budget - US, Finance 2`] = `200`;
+
+exports[`APP Testing GET \`/exchange\` route - No Budget - US, Finance 3`] = `"No Companies Passed from Budget"`;
+
+exports[`APP Testing GET \`/exchange\` route - No targeting - BR, Finance 1`] = `null`;
+
+exports[`APP Testing GET \`/exchange\` route - No targeting - BR, Finance 2`] = `200`;
+
+exports[`APP Testing GET \`/exchange\` route - No targeting - BR, Finance 3`] = `"No Companies Passed from Targeting"`;
+
+exports[`APP Testing GET \`/exchange\` route - return C1 - US, Automobile 1`] = `null`;
+
+exports[`APP Testing GET \`/exchange\` route - return C1 - US, Automobile 2`] = `200`;
+
+exports[`APP Testing GET \`/exchange\` route - return C1 - US, Automobile 3`] = `"C1"`;
+
+exports[`APP Testing GET \`/exchange\` route - return C2 - IN, Finance 1`] = `null`;
+
+exports[`APP Testing GET \`/exchange\` route - return C2 - IN, Finance 2`] = `200`;
+
+exports[`APP Testing GET \`/exchange\` route - return C2 - IN, Finance 3`] = `"C2"`;
+
+exports[`APP Testing GET \`/exchange\` route - return C2 - US, IT 1`] = `null`;
+
+exports[`APP Testing GET \`/exchange\` route - return C2 - US, IT 2`] = `200`;
+
+exports[`APP Testing GET \`/exchange\` route - return C2 - US, IT 3`] = `"C2"`;
+
+exports[`APP Testing GET \`/exchange\` route - return C3 - RU, IT 1`] = `null`;
+
+exports[`APP Testing GET \`/exchange\` route - return C3 - RU, IT 2`] = `200`;
+
+exports[`APP Testing GET \`/exchange\` route - return C3 - RU, IT 3`] = `"C3"`;

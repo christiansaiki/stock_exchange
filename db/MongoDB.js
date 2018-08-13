@@ -23,4 +23,8 @@ export default class MongoDB {
 
 		this.Stocks = mongoose.model('stocks', stocks(Schema));
 	}
+
+	disconnect () {
+		mongoose.disconnect();
+	}
 }

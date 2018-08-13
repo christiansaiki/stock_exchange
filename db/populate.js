@@ -1,14 +1,6 @@
 import BaseRepository from './BaseRepository';
 import MongoDB from './MongoDB';
 
-const env = process.env.NODE_ENV || 'local';
-const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/stock_exchange';
-
-// Init Mongo
-const mongo = new MongoDB(env, mongoUrl);
-mongo.init();
-
-const Stocks = new BaseRepository(mongo.Stocks);
 const stocks = [{
 	company_id: 'C1',
 	countries: ['US', 'FR'],
@@ -33,13 +25,32 @@ Promise.each = async (arr, fn) => {
 	for(const item of arr) await fn(item);
 };
 
-Promise.each(stocks, async stock => {
-	await Stocks.create(stock);
-}).then(() => {
-	console.log('finished');
-	process.exit();
-})
-	.catch((err) => {
-		console.log(err);
-		process.exit();
-	});
+module.exports = populateDb;
+
+function populateDb (mongo, shouldDisconnect) {
+	const env = process.env.NODE_ENV || 'local';
+	const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/stock_exchange';
+
+
+	// Init Mongo
+	if(!mongo) {
+		mongo = new MongoDB(env, mongoUrl);
+		mongo.init();
+	}
+	const Stocks = new BaseRepository(mongo.Stocks);
+
+	Promise.each(stocks, async stock => {
+		await Stocks.findAndUpdate({company_id: stock.company_id}, stock, {upsert: true});
+	}).then(() => {
+		console.log('finished');
+		if (shouldDisconnect) {
+			console.log('Disconnecting');
+			mongo.disconnect();
+		}
+	})
+		.catch((err) => {
+			console.log(err);
+			if (shouldDisconnect) mongo.disconnect();
+		});
+};
+
