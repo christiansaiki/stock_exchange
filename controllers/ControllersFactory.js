@@ -17,6 +17,7 @@ export default class ControllersFactory {
 
 		// Exchange controller routes
 		if(/^(\/exchange\?.+)$/.test(url)) return this.exchange.buyStock;
+		if(/^(\/alternative_exchange\?.+)$/.test(url)) return this.exchange.alternativeBuyStock;
 		return this.notFound;
 	}
 

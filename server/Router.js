@@ -17,6 +17,7 @@ export default class Router {
 		const handler = new RequestHandler(mongo);
 
 		fastify.get('/exchange',  handler.get);
+		fastify.get('/alternative_exchange', handler.get);
 		fastify.get('/health', handler.get);
 	}
 }

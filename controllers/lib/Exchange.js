@@ -15,6 +15,7 @@ export default class Exchange {
 
 		// Main methods
 		this.buyStock = this.buyStock.bind(this);
+		this.alternativeBuyStock = this.alternativeBuyStock.bind(this);
 
 		// Auxiliary Methods
 		this.buildLog = this.buildLog.bind(this);
@@ -139,5 +140,37 @@ export default class Exchange {
 			if (a.base_bid < b.base_bid) return 1;
 			return 0;
 		});
+	}
+
+
+	/**
+	 * alternativeBuyStock - this alternative form relies entirely in a well structured Mongo query.
+	 *
+	 * @param {object} query - fastify query object
+	 * @returns {string}
+	 * @memberof Exchange
+	 */
+	async alternativeBuyStock(query) {
+		const country = query.countrycode;
+		const category = query.Category;
+		const baseBid = query.BaseBid;
+		const adjustedBid = baseBid/100;
+
+		helper.logger.info('Request Received:', {
+			country,
+			category,
+			baseBid
+		});
+
+		const mongoQuery = {
+			countries: country,
+			categories: category,
+			base_bid: {$lte: adjustedBid},
+			budget: {$gte: adjustedBid}
+		};
+		const update = {$inc: {budget: adjustedBid * -1}};
+		const promise = await this.stocks.findAndUpdate(mongoQuery, update, {sort: {base_bid: -1}});
+		if (promise.error) return 'Error in Server while updating';
+		return promise.result.company_id;
 	}
 }
