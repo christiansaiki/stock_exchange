@@ -42,7 +42,8 @@ npm run dev
 
 ## Making requests locally
 
-The endpoint of the application is `http://localhost:3000/exchange`
+The endpoint of the application is `http://localhost:3000/exchange`.
+
 The query parameters are:
 - countrycode
 - Category
