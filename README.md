@@ -29,15 +29,18 @@ Also I'm using [pino-tee](https://github.com/pinojs/pino-tee) in order to create
 
 If you want to run it locally, you have to install MongoDB in your OS and then run `mongod`
 
-If it is the first time running the project you will have install all node_modules with:
+If it is the first time running the project you will have to run the scripts below:
 ``` bash
+# to install the node_modules
 npm install
+# to populate the database
+npm run populate
 ```
 
-Finally, to run:
+Finally, to run the application:
 
 ``` bash
-npm run dev
+npm start
 ```
 
 ## Making requests locally
